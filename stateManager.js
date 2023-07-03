@@ -1,4 +1,4 @@
-import {html, svg, render} from 'uhtml';
+import {html, svg, render} from 'https://unpkg.com/uhtml?module';
 
 export default function Nanny(State, Path = window.location.pathname,Routes = State.Routes || [], Effects = [],Calcs = []){
   // Retrieve state from local storage.
