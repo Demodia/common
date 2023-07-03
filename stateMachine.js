@@ -1,6 +1,6 @@
 import {html, svg, render} from 'https://unpkg.com/uhtml?module';
 
-export default function StateMaster(State, Path = window.location.pathname, Routes = State.Routes || [], Effects = [], Calcs = []) {
+export default function StateMachine(State, Path = window.location.pathname, Routes = State.Routes || [], Effects = [], Calcs = []) {
   // Retrieve state from local storage.
   if (State.LocalStorageKey && localStorage.getItem(State.LocalStorageKey)) {
     State =  {...State,...JSON.parse(localStorage.getItem(State.LocalStorageKey))} 
