@@ -29,15 +29,15 @@ export default function Nanny(State, Path = window.location.pathname, Routes = S
   State.Calculate = (calc, list) => {
     if (!Calcs.some(c => c[0].toString() === calc.toString() && c[1] === list)) Calcs.push([calc, list]);
   };
+
   const findRoute = path =>
     (path === '/' ? ['/'] : path.split('/').filter(char => char !== '')).reduce(
       (obj, path) => {
         const param = obj.routes.find(r => r.path[0] === ':');
-        return obj.routes.find(r => r.path === path) ? { ...obj.routes.find(r => r.path === path), params: obj.params } : param ? { ...param, params: { ...obj.params, [param.path.slice(1)]: path } } : { title: 'Not Found', view: () => '404 - Not Found' };
+        return obj.routes.find(r => r.path === path) ? { ...obj.routes.find(r => r.path === path), params: obj.params } : { ...param, params: { ...obj.params, [param.path.slice(1)]: path } };
       },
       { routes: Routes }
     );
-
   State.Update = (...transformers) => {
     if (State.Before) setState(State.Before);
 
