@@ -18,7 +18,7 @@ import debugWithColor from 'https://cdn.jsdelivr.net/gh/Demodia/common@3f580b10c
  * @param {boolean} [options.cancellable=false] - Whether the Promise should be cancellable.
  * @returns {Promise} A Promise that resolves when the event occurs or the timeout expires.
  */
-export default function docEventPromise({ event = CONSTANTS.DEFAULT.EVENT, timeout = CONSTANTS.DEFAULT.TIMEOUT, cancellable = CONSTANTS.DEFAULT.CANCELLABLE, debug = { ENABLE: false } } = {}) {
+export default function docEventPromise({ event = CONSTANTS.DEFAULT.EVENT, timeout = CONSTANTS.DEFAULT.TIMEOUT, cancellable = CONSTANTS.DEFAULT.CANCELLABLE, DEBUG } = {}) {
   let timer;
   let listener;
 
@@ -27,7 +27,7 @@ export default function docEventPromise({ event = CONSTANTS.DEFAULT.EVENT, timeo
       resolve();
     } else {
       listener = () => {
-        debug.ENABLE && console.log(...debugWithColor(['docEventPromise', event], ['lime', 'teal'], debug));
+        DEBUG.ENABLE && console.log(...debugWithColor(['docEventPromise', event], ['lime', 'teal'], DEBUG));
         resolve();
       };
       document.addEventListener(event, listener, { once: true });
