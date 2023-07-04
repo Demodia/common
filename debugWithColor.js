@@ -79,11 +79,8 @@ export default function debugWithColor(messages, colors, { ENABLE = false, THEME
     return;
   }
 
-  const formattedMessages = [];
-  const formattedColors = [];
-
-  formattedMessages.push(`%c${LOCATION}`);
-  formattedColors.push('color: purple');
+  const formattedMessages = [`%c${LOCATION}`];
+  const formattedColors = ['color: purple'];
 
   messages.forEach((message, index) => {
     const colorName = colors[index].toUpperCase();
@@ -92,7 +89,7 @@ export default function debugWithColor(messages, colors, { ENABLE = false, THEME
       console.warn(`debugWithColor: Invalid color "${colorName}".`);
       return;
     }
-    formattedMessages.push(`%c${SEPARATOR} ${message}`);
+    formattedMessages.push(`%c ${SEPARATOR} ${message}`);
     formattedColors.push(`color: ${color}`);
   });
 
