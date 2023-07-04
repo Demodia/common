@@ -54,11 +54,14 @@ const LOG_COLOR = new Map([
  *
  * @param {string[]} messages - The messages to log.
  * @param {string[]} colors - The colors to use for each message.
- * @param {boolean} [debug=false] - Whether to actually log the messages.
- * @param {string} [theme='LIGHT'] - The color theme to use.
+ * @param {Object} debugConfig - The debug configuration.
+ * @param {boolean} debugConfig.ENABLE - Whether to actually log the messages.
+ * @param {string} debugConfig.THEME - The color theme to use.
+ * @param {string} debugConfig.LOCATION - The location to prepend to each message.
+ * @param {string} debugConfig.SEPARATOR - The separator to append to each message.
  */
-export default function debugWithColor(messages, colors, debug = false, theme = 'LIGHT') {
-  if (!debug) return;
+export default function debugWithColor(messages, colors, { ENABLE = false, THEME = 'LIGHT', LOCATION = '', SEPARATOR = '' } = {}) {
+  if (!ENABLE) return;
 
   if (!Array.isArray(messages) || !Array.isArray(colors)) {
     console.warn('debugWithColor: Both messages and colors must be arrays.');
@@ -70,9 +73,9 @@ export default function debugWithColor(messages, colors, debug = false, theme = 
     return;
   }
 
-  const colorTheme = LOG_COLOR.get(theme.toUpperCase());
+  const colorTheme = LOG_COLOR.get(THEME.toUpperCase());
   if (!colorTheme) {
-    console.warn(`debugWithColor: Invalid theme "${theme}".`);
+    console.warn(`debugWithColor: Invalid theme "${THEME}".`);
     return;
   }
 
@@ -83,7 +86,7 @@ export default function debugWithColor(messages, colors, debug = false, theme = 
       console.warn(`debugWithColor: Invalid color "${colorName}".`);
       return message;
     }
-    return `%c${message}`;
+    return `%c${LOCATION} ${SEPARATOR} ${message}`;
   }).join(' ');
 
   const formattedColors = colors.map(color => `color: ${colorTheme[color.toUpperCase()] || ''}`);
