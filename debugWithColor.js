@@ -1,8 +1,26 @@
 const LOG_COLOR = {
-  BLUE: '#22d3ee',
-  GREEN: '#4ade80',
-  PURPLE: '#a78bfa',
+  SLATE: '#64748b',
+  GRAY: '#6b7280',
+  ZINC: '#71717a',
+  NEUTRAL: '#737373',
+  STONE: '#78716c',
   RED: '#ef4444',
+  ORANGE: '#f97316',
+  AMBER: '#f59e0b',
+  YELLOW: '#eab308',
+  LIME: '#84cc16',
+  GREEN: '#22c55e',
+  EMERALD: '#10b981',
+  TEAL: '#14b8a6',
+  CYAN: '#06b6d4',
+  SKY: '#0ea5e9',
+  BLUE: '#3b82f6',
+  INDIGO: '#6366f1',
+  VIOLET: '#8b5cf6',
+  PURPLE: '#a855f7',
+  FUSCHIA: '#d946ef',
+  PINK: '#ec4899',
+  ROSE: '#f43f5e',
 };
 
 /**
@@ -25,14 +43,16 @@ export default function debugWithColor(messages, colors, debug = false) {
     return;
   }
 
-  const formattedMessages = messages.map((message, index) => {
-    const color = LOG_COLOR[colors[index].toUpperCase()];
-    if (!color) {
-      console.warn(`debugWithColor: Invalid color "${colors[index]}".`);
-      return message;
-    }
-    return `%c${message}`;
-  }).join(' ');
+  const formattedMessages = messages
+    .map((message, index) => {
+      const color = LOG_COLOR[colors[index].toUpperCase()];
+      if (!color) {
+        console.warn(`debugWithColor: Invalid color "${colors[index]}".`);
+        return message;
+      }
+      return `%c${message}`;
+    })
+    .join(' ');
 
   const formattedColors = colors.map(color => `color: ${LOG_COLOR[color.toUpperCase()] || ''}`);
 
