@@ -50,7 +50,7 @@ const LOG_COLOR = new Map([
 ]);
 
 /**
- * Logs messages to the console with color.
+ * Returns a console log with color.
  *
  * @param {string[]} messages - The messages to log.
  * @param {string[]} colors - The colors to use for each message.
@@ -61,26 +61,26 @@ const LOG_COLOR = new Map([
  * @param {string} debugConfig.SEPARATOR - The separator to append to each message.
  */
 export default function debugWithColor(messages, colors, { ENABLE = false, THEME = 'DARK', LOCATION = '', SEPARATOR = '=>' } = {}) {
-  if (!ENABLE) return;
+  if (!ENABLE) return () => {};
 
   if (!Array.isArray(messages) || !Array.isArray(colors)) {
     console.warn('debugWithColor: Both messages and colors must be arrays.');
-    return;
+    return () => {};
   }
 
   if (messages.length !== colors.length) {
     console.warn('debugWithColor: Messages and colors must have the same length.');
-    return;
+    return () => {};
   }
 
   const colorTheme = LOG_COLOR.get(THEME.toUpperCase());
   if (!colorTheme) {
     console.warn(`debugWithColor: Invalid theme "${THEME}".`);
-    return;
+    return () => {};
   }
 
   const formattedMessages = [`%c${LOCATION}`];
-  const formattedColors = [`color: ${colorTheme.VIOLET}`]; // Access the color 'VIOLET' from the colorTheme object
+  const formattedColors = [`color: ${colorTheme['VIOLET']}`];
 
   messages.forEach((message, index) => {
     const colorName = colors[index].toUpperCase();
@@ -93,5 +93,5 @@ export default function debugWithColor(messages, colors, { ENABLE = false, THEME
     formattedColors.push(`color: ${color}`);
   });
 
-  console.log(formattedMessages.join(''), ...formattedColors);
+  return () => console.log(formattedMessages.join(''), ...formattedColors);
 }
