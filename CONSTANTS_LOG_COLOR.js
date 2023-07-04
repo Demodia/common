@@ -1,6 +1,6 @@
 export default {
-  BLUE: 'color:#22d3ee',
-  GREEN: 'color:#4ade80',
-  PURPLE: 'color:#a78bfa',
-  RED: 'color:#ef4444',
+  BLUE: '#22d3ee',
+  GREEN: '#4ade80',
+  PURPLE: '#a78bfa',
+  RED: '#ef4444',
 }
