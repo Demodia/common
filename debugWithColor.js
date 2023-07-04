@@ -1,5 +1,5 @@
-const LOG_COLOR = {
-  DARK: {
+const LOG_COLOR = new Map([
+  ['DARK', {
     SLATE: '#94a3b8',
     GRAY: '#9ca3af',
     ZINC: '#a1a1aa',
@@ -22,8 +22,8 @@ const LOG_COLOR = {
     FUSCHIA: '#e879f9',
     PINK: '#f472b6',
     ROSE: '#fb7185',
-  },
-  LIGHT: {
+  }],
+  ['LIGHT', {
     SLATE: '#475569',
     GRAY: '#4b5563',
     ZINC: '#52525b',
@@ -46,8 +46,8 @@ const LOG_COLOR = {
     FUSCHIA: '#c026d3',
     PINK: '#db2777',
     ROSE: '#e11d48',
-  },
-};
+  }],
+]);
 
 /**
  * Logs messages to the console with color.
@@ -70,16 +70,17 @@ export default function debugWithColor(messages, colors, debug = false, theme = 
     return;
   }
 
-  const colorTheme = LOG_COLOR[theme.toUpperCase()];
+  const colorTheme = LOG_COLOR.get(theme.toUpperCase());
   if (!colorTheme) {
     console.warn(`debugWithColor: Invalid theme "${theme}".`);
     return;
   }
 
   const formattedMessages = messages.map((message, index) => {
-    const color = colorTheme[colors[index].toUpperCase()];
+    const colorName = colors[index].toUpperCase();
+    const color = colorTheme[colorName];
     if (!color) {
-      console.warn(`debugWithColor: Invalid color "${colors[index]}".`);
+      console.warn(`debugWithColor: Invalid color "${colorName}".`);
       return message;
     }
     return `%c${message}`;
