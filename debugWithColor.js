@@ -80,7 +80,7 @@ export default function debugWithColor(messages, colors, { ENABLE = false, THEME
   }
 
   const formattedMessages = [`%c${LOCATION}`];
-  const formattedColors = ['color: violet'];
+  const formattedColors = [`color: ${colorTheme[VIOLET] || ''}`];
 
   messages.forEach((message, index) => {
     const colorName = colors[index].toUpperCase();
