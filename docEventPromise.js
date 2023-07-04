@@ -1,3 +1,13 @@
+const CONSTANTS = {
+  DEFAULT: {
+    CANCELLABLE: false,
+    EVENT: 'DOMContentLoaded',
+    TIMEOUT: 5000,
+  }
+}
+const DEFAULT_EVENT = 'DOMContentLoaded';
+const DEFAULT_TIMEOUT = 5000;
+
 /**
  * Returns a Promise that resolves when a specific event on the document occurs.
  *
@@ -7,7 +17,7 @@
  * @param {boolean} [options.cancellable=false] - Whether the Promise should be cancellable.
  * @returns {Promise} A Promise that resolves when the event occurs or the timeout expires.
  */
-export default function docEventPromise({ event = 'DOMContentLoaded', timeout = 5000, cancellable = false } = {}) {
+export default function docEventPromise({ event = CONSTANTS.DEFAULT.EVENT, timeout = CONSTANTS.DEFAULT.TIMEOUT, cancellable = CONSTANTS.DEFAULT.CANCELLABLE } = {}) {
   let timer;
   let listener;
 
