@@ -5,8 +5,9 @@ const CONSTANTS = {
     TIMEOUT: 5000,
   }
 }
-const DEFAULT_EVENT = 'DOMContentLoaded';
-const DEFAULT_TIMEOUT = 5000;
+
+import debugWithColor from 'https://cdn.jsdelivr.net/gh/Demodia/common@3f580b10cd0d3cf93e5475883bd0f36954faa049/debugWithColor.min.js';
+
 
 /**
  * Returns a Promise that resolves when a specific event on the document occurs.
@@ -17,7 +18,7 @@ const DEFAULT_TIMEOUT = 5000;
  * @param {boolean} [options.cancellable=false] - Whether the Promise should be cancellable.
  * @returns {Promise} A Promise that resolves when the event occurs or the timeout expires.
  */
-export default function docEventPromise({ event = CONSTANTS.DEFAULT.EVENT, timeout = CONSTANTS.DEFAULT.TIMEOUT, cancellable = CONSTANTS.DEFAULT.CANCELLABLE } = {}) {
+export default function docEventPromise({ event = CONSTANTS.DEFAULT.EVENT, timeout = CONSTANTS.DEFAULT.TIMEOUT, cancellable = CONSTANTS.DEFAULT.CANCELLABLE, debug = false } = {}) {
   let timer;
   let listener;
 
@@ -25,7 +26,10 @@ export default function docEventPromise({ event = CONSTANTS.DEFAULT.EVENT, timeo
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
       resolve();
     } else {
-      listener = resolve;
+      listener = () => {
+        debug && console.log(...debugWithColor(['docEventPromise', event], ['lime', 'teal'], debug));
+        resolve();
+      };
       document.addEventListener(event, listener, { once: true });
 
       if (timeout) {
