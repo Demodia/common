@@ -79,17 +79,8 @@ export default function debugWithColor(messages, colors, { ENABLE = false, THEME
     return;
   }
 
-  const formattedMessages = messages.map((message, index) => {
-    const colorName = colors[index].toUpperCase();
-    const color = colorTheme[colorName];
-    if (!color) {
-      console.warn(`debugWithColor: Invalid color "${colorName}".`);
-      return message;
-    }
-    return `%c${LOCATION} ${SEPARATOR} ${message}`;
-  }).join(' ');
+  const formattedMessages = [`%c${LOCATION}`, ...messages.map((message, index) => `%c${SEPARATOR} ${message}`)];
+  const formattedColors = ['color: purple', ...colors.map(color => `color: ${colorTheme[color.toUpperCase()] || ''}`)];
 
-  const formattedColors = colors.map(color => `color: ${colorTheme[color.toUpperCase()] || ''}`);
-
-  console.log(formattedMessages, ...formattedColors);
+  console.log(...formattedMessages, ...formattedColors);
 }
