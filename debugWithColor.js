@@ -60,7 +60,7 @@ const LOG_COLOR = new Map([
  * @param {string} debugConfig.LOCATION - The location to prepend to each message.
  * @param {string} debugConfig.SEPARATOR - The separator to append to each message.
  */
-export default function debugWithColor(messages, colors, { ENABLE = false, THEME = 'DARK', LOCATION = '', SEPARATOR = '=>' } = {}) {
+export default function debugWithColor(messages, colors, { ENABLE = false, THEME = 'DARK', LOCATION = '', SEPARATOR = '⟼' } = {}) {
   if (!ENABLE) return [];
 
   if (!Array.isArray(messages) || !Array.isArray(colors)) {
