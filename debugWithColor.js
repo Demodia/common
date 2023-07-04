@@ -96,5 +96,5 @@ export default function debugWithColor(messages, colors, { ENABLE = false, THEME
     formattedColors.push(`color: ${color}`);
   });
 
-  console.log(...formattedMessages, ...formattedColors);
+  console.log(formattedMessages.join(''), ...formattedColors);
 }
